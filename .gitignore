@@ -1,0 +1,26 @@
+# os
+Thumbs.db
+.DS_Store
+
+# ide
+.idea
+.vscode
+
+# auto generated
+**/*.pyc
+*.autosave
+*.user
+*.user.*
+CMakeSettings.json
+.vs
+__pycache__
+
+# node
+node_modules
+package-lock.json
+
+# nativium
+/nativium
+
+# qt
+/build-*
