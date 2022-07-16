@@ -28,3 +28,14 @@
         <img src="extras/images/screenshot-20220716.png" alt="SQLite Data Browser Screenshot">
     </a>
 </p>
+
+## Tools
+
+- Nativium: [https://github.com/nativium/nativium](https://github.com/nativium/nativium)
+- Emscriptem: [https://emscripten.org/](https://emscripten.org/)
+- Conan: [https://conan.io/](https://conan.io/)
+- SQLite: [https://sqlite.org/](https://sqlite.org/)
+- Vue JS: [https://vuejs.org/](https://vuejs.org/)
+- Vite JS: [https://vitejs.dev/](https://vitejs.dev/)
+- Quasar: [https://quasar.dev/](https://quasar.dev/)
+- Netlify: [https://www.netlify.com/](https://www.netlify.com/)
