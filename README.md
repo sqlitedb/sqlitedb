@@ -1,6 +1,6 @@
 # SQLite Data Browser (BETA)
 
-<p align="center">This is a SQLite data browser made with Web Assembly.</p>
+<p align="center">This is a SQLite data browser made with Web Assembly with C++ and web frameworks like Vue JS, Vite JS and Quasar.</p>
 
 <p align="center">
     <a href="https://github.com/sqlitedb/sqlitedb/actions/workflows/wasm.yml"><img src="https://github.com/sqlitedb/sqlitedb/actions/workflows/wasm.yml/badge.svg"></a>
