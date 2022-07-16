@@ -10,7 +10,7 @@
 ## Web Application
 
 <p align="center">
-    Open this URL to see this application:
+    Open this website to see this application:
     <br>
     <a href="https://sqlitedb.netlify.app">https://sqlitedb.netlify.app</a>
 </p>
