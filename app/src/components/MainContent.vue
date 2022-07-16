@@ -2,7 +2,9 @@
 // ignore
 </script>
 
-<template>[MAIN CONTENT]</template>
+<template>
+    <div>[MAIN CONTENT]</div>
+</template>
 
 <style scoped>
 /* ignore */
