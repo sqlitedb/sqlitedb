@@ -9,9 +9,13 @@
 
 ## Web Application
 
-Open this URL to see this application:
+<p align="center">
+    Open this URL to see this application:
+    <br>
+    <a href="https://sqlitedb.netlify.app">https://sqlitedb.netlify.app</a>
+</p>
 
-[https://sqlitedb.netlify.app](https://sqlitedb.netlify.app)
+<br>
 
 <p align="center">
     <a href="https://www.netlify.com"> <img src="https://www.netlify.com/v3/img/components/netlify-color-accent.svg" alt="Deploys by Netlify" /> </a>
