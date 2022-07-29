@@ -52,8 +52,6 @@ class CDatabaseItem {
                 rowData[columns[c].name] = row.values[c];
             }
 
-            console.log(rowData);
-
             rowsData.push(rowData);
         }
 
