@@ -90,3 +90,6 @@ jobs:
           single-commit: true
           force: true
           branch: main
+          clean-exclude: |
+            .github
+            .nojekyll
