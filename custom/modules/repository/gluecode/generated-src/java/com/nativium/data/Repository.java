@@ -22,6 +22,10 @@ public abstract class Repository {
 
     public abstract ArrayList<RepositoryView> getViewList();
 
+    public abstract ArrayList<RepositoryColumn> getColumns(String name);
+
+    public abstract ArrayList<RepositoryRow> getRows(String name);
+
     public static native Repository shared();
 
     public static final class CppProxy extends Repository
@@ -92,5 +96,21 @@ public abstract class Repository {
             return native_getViewList(this.nativeRef);
         }
         private native ArrayList<RepositoryView> native_getViewList(long _nativeRef);
+
+        @Override
+        public ArrayList<RepositoryColumn> getColumns(String name)
+        {
+            assert !this.destroyed.get() : "trying to use a destroyed object";
+            return native_getColumns(this.nativeRef, name);
+        }
+        private native ArrayList<RepositoryColumn> native_getColumns(long _nativeRef, String name);
+
+        @Override
+        public ArrayList<RepositoryRow> getRows(String name)
+        {
+            assert !this.destroyed.get() : "trying to use a destroyed object";
+            return native_getRows(this.nativeRef, name);
+        }
+        private native ArrayList<RepositoryRow> native_getRows(long _nativeRef, String name);
     }
 }

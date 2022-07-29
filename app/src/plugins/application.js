@@ -5,8 +5,7 @@ export default {
         app.provide("Application", {
             reset() {
                 const repository = useRepositoryStore();
-                repository.setLoaded(false);
-                repository.setInfo({});
+                repository.reset();
 
                 app.config.globalProperties.$WM.Repository.shared().close();
             },

@@ -3,6 +3,7 @@
 
 #import "nativium/data/NTVRepositoryView+Private.h"
 #import "djinni/objc/DJIMarshal+Private.h"
+#import "nativium/data/NTVRepositoryColumn+Private.h"
 #include <cassert>
 
 namespace djinni_generated {
@@ -10,12 +11,14 @@ namespace djinni_generated {
 auto RepositoryView::toCpp(ObjcType obj) -> CppType
 {
     assert(obj);
-    return {::djinni::String::toCpp(obj.name)};
+    return {::djinni::String::toCpp(obj.name),
+            ::djinni::List<::djinni_generated::RepositoryColumn>::toCpp(obj.columns)};
 }
 
 auto RepositoryView::fromCpp(const CppType& cpp) -> ObjcType
 {
-    return [[NTVRepositoryView alloc] initWithName:(::djinni::String::fromCpp(cpp.name))];
+    return [[NTVRepositoryView alloc] initWithName:(::djinni::String::fromCpp(cpp.name))
+                                           columns:(::djinni::List<::djinni_generated::RepositoryColumn>::fromCpp(cpp.columns))];
 }
 
 }  // namespace djinni_generated

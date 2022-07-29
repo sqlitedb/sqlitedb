@@ -3,24 +3,35 @@
 
 package com.nativium.data;
 
+import java.util.ArrayList;
+
 public final class RepositoryView {
 
 
     /*package*/ final String mName;
 
+    /*package*/ final ArrayList<RepositoryColumn> mColumns;
+
     public RepositoryView(
-            String name) {
+            String name,
+            ArrayList<RepositoryColumn> columns) {
         this.mName = name;
+        this.mColumns = columns;
     }
 
     public String getName() {
         return mName;
     }
 
+    public ArrayList<RepositoryColumn> getColumns() {
+        return mColumns;
+    }
+
     @Override
     public String toString() {
         return "RepositoryView{" +
                 "mName=" + mName +
+                "," + "mColumns=" + mColumns +
         "}";
     }
 

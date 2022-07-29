@@ -35,6 +35,7 @@ const colorForInformations = "teal";
                 dense
                 v-for="item in repository.info.tables"
                 :key="item"
+                @click="repository.setDatabaseItem('table', item.name)"
             >
                 <q-item-section side>
                     <q-icon
@@ -71,6 +72,7 @@ const colorForInformations = "teal";
                 dense
                 v-for="item in repository.info.views"
                 :key="item"
+                @click="repository.setDatabaseItem('view', item.name)"
             >
                 <q-item-section side>
                     <q-icon

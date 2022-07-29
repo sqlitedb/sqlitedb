@@ -4,12 +4,27 @@ database_file_data = record {
     file_path: string;
 }
 
+repository_column = record {
+    id: i64;
+    name: string;
+    type: string;
+    notNull: bool;
+    defaultValue: string;
+    pk: bool;
+}
+
+repository_row = record {
+    values: list<string>;
+}
+
 repository_table = record {
     name: string;
+    columns: list<repository_column>;
 }
 
 repository_view = record {
     name: string;
+    columns: list<repository_column>;
 }
 
 repository_info = record {
@@ -28,4 +43,6 @@ repository = interface +c {
     get_sqlite_version(): string;
     get_table_list(): list<repository_table>;
     get_view_list(): list<repository_view>;
+    get_columns(name: string): list<repository_column>;
+    get_rows(name: string): list<repository_row>;
 }

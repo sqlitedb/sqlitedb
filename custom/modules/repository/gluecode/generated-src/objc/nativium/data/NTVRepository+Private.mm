@@ -6,7 +6,9 @@
 #import "djinni/objc/DJICppWrapperCache+Private.h"
 #import "djinni/objc/DJIError.h"
 #import "djinni/objc/DJIMarshal+Private.h"
+#import "nativium/data/NTVRepositoryColumn+Private.h"
 #import "nativium/data/NTVRepositoryInfo+Private.h"
+#import "nativium/data/NTVRepositoryRow+Private.h"
 #import "nativium/data/NTVRepositoryTable+Private.h"
 #import "nativium/data/NTVRepositoryView+Private.h"
 #include <exception>
@@ -83,6 +85,20 @@ static_assert(__has_feature(objc_arc), "Djinni requires ARC to be enabled for th
     try {
         auto objcpp_result_ = _cppRefHandle.get()->getViewList();
         return ::djinni::List<::djinni_generated::RepositoryView>::fromCpp(objcpp_result_);
+    } DJINNI_TRANSLATE_EXCEPTIONS()
+}
+
+- (nonnull NSArray<NTVRepositoryColumn *> *)getColumns:(nonnull NSString *)name {
+    try {
+        auto objcpp_result_ = _cppRefHandle.get()->getColumns(::djinni::String::toCpp(name));
+        return ::djinni::List<::djinni_generated::RepositoryColumn>::fromCpp(objcpp_result_);
+    } DJINNI_TRANSLATE_EXCEPTIONS()
+}
+
+- (nonnull NSArray<NTVRepositoryRow *> *)getRows:(nonnull NSString *)name {
+    try {
+        auto objcpp_result_ = _cppRefHandle.get()->getRows(::djinni::String::toCpp(name));
+        return ::djinni::List<::djinni_generated::RepositoryRow>::fromCpp(objcpp_result_);
     } DJINNI_TRANSLATE_EXCEPTIONS()
 }
 

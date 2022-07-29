@@ -18,7 +18,9 @@ int main(int argc, char **argv)
 #include "nativium/core/ApplicationCore.hpp"
 #include "nativium/data/DatabaseFileData.hpp"
 #include "nativium/data/Repository.hpp"
+#include "nativium/data/RepositoryColumn.hpp"
 #include "nativium/data/RepositoryInfo.hpp"
+#include "nativium/data/RepositoryRow.hpp"
 #include "nativium/data/RepositoryTable.hpp"
 #include "nativium/data/RepositoryView.hpp"
 
@@ -45,8 +47,27 @@ int main(int argc, char **argv)
     Repository::shared()->test();
     Repository::shared()->getSqliteVersion();
     Repository::shared()->getInfo();
-    Repository::shared()->getTableList();
-    Repository::shared()->getViewList();
+    auto tables = Repository::shared()->getTableList();
+    auto views = Repository::shared()->getViewList();
+
+    try
+    {
+        std::cout << "Column name from table 1: " << tables[0].columns[0].name << std::endl;
+    }
+    catch (const std::exception &e)
+    {
+        std::cout << "No tables or columns" << std::endl;
+    }
+
+    try
+    {
+        auto values = Repository::shared()->getRows(tables[0].name);
+        std::cout << "Value from table 1: " << values[0].values[0] << std::endl;
+    }
+    catch (const std::exception &e)
+    {
+        std::cout << "No values" << std::endl;
+    }
 
     return EXIT_SUCCESS;
 }

@@ -3,7 +3,9 @@
 #include "SQLiteCpp/SQLiteCpp.h"
 #include "nativium/data/DatabaseFileData.hpp"
 #include "nativium/data/Repository.hpp"
+#include "nativium/data/RepositoryColumn.hpp"
 #include "nativium/data/RepositoryInfo.hpp"
+#include "nativium/data/RepositoryRow.hpp"
 #include "nativium/data/RepositoryTable.hpp"
 #include "nativium/data/RepositoryView.hpp"
 
@@ -31,6 +33,8 @@ public:
     std::string getSqliteVersion() override;
     std::vector<RepositoryTable> getTableList() override;
     std::vector<RepositoryView> getViewList() override;
+    std::vector<RepositoryColumn> getColumns(const std::string &name) override;
+    std::vector<RepositoryRow> getRows(const std::string &name) override;
 
 private:
     static std::shared_ptr<RepositoryImpl> instance;

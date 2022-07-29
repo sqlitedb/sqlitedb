@@ -25,8 +25,9 @@ private:
     friend ::djinni::JniClass<NTVRepositoryView>;
 
     const ::djinni::GlobalRef<jclass> clazz { ::djinni::jniFindClass("com/nativium/data/RepositoryView") };
-    const jmethodID jconstructor { ::djinni::jniGetMethodID(clazz.get(), "<init>", "(Ljava/lang/String;)V") };
+    const jmethodID jconstructor { ::djinni::jniGetMethodID(clazz.get(), "<init>", "(Ljava/lang/String;Ljava/util/ArrayList;)V") };
     const jfieldID field_mName { ::djinni::jniGetFieldID(clazz.get(), "mName", "Ljava/lang/String;") };
+    const jfieldID field_mColumns { ::djinni::jniGetFieldID(clazz.get(), "mColumns", "Ljava/util/ArrayList;") };
 };
 
 }  // namespace djinni_generated

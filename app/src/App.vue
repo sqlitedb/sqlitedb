@@ -22,6 +22,9 @@ function hideLoading() {
 }
 
 function openNewFile() {
+    Application.reset();
+    router.push("/");
+
     FileHelper.open(
         () => {
             q.dialog({
@@ -34,7 +37,7 @@ function openNewFile() {
         (e) => {
             q.dialog({
                 title: "Open",
-                message: "" + e.message,
+                message: e.message.toString(),
             });
         }
     );

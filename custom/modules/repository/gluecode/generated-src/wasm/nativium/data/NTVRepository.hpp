@@ -31,6 +31,8 @@ struct NTVRepository : ::djinni::JsInterface<::nativium::data::Repository, NTVRe
     static std::string getSqliteVersion(const CppType& self);
     static em::val getTableList(const CppType& self);
     static em::val getViewList(const CppType& self);
+    static em::val getColumns(const CppType& self, const std::string& w_name);
+    static em::val getRows(const CppType& self, const std::string& w_name);
 
 };
 

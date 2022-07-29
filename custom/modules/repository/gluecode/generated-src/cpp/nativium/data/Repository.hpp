@@ -9,7 +9,9 @@
 
 namespace nativium { namespace data {
 
+struct RepositoryColumn;
 struct RepositoryInfo;
+struct RepositoryRow;
 struct RepositoryTable;
 struct RepositoryView;
 
@@ -32,6 +34,10 @@ public:
     virtual std::vector<RepositoryTable> getTableList() = 0;
 
     virtual std::vector<RepositoryView> getViewList() = 0;
+
+    virtual std::vector<RepositoryColumn> getColumns(const std::string & name) = 0;
+
+    virtual std::vector<RepositoryRow> getRows(const std::string & name) = 0;
 };
 
 } }  // namespace nativium::data
