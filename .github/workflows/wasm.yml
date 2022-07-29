@@ -89,3 +89,4 @@ jobs:
           folder: app/dist
           single-commit: true
           branch: main
+          clean: false
