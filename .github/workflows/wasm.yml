@@ -88,8 +88,4 @@ jobs:
           repository-name: "sqlitedb/sqlitedb.github.io"
           folder: app/dist
           single-commit: true
-          force: true
           branch: main
-          clean-exclude: |
-            .github
-            .nojekyll
