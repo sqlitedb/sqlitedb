@@ -1,7 +1,7 @@
 {
     "name": "sqlitedb",
     "version": "1.0.0",
-    "homepage": "https://sqlitedb.netlify.app",
+    "homepage": "https://sqlitedb.github.io",
     "scripts": {
         "dev": "vite",
         "build": "vite build",

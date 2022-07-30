@@ -26,20 +26,5 @@ import AboutDataVue from "../components/AboutData.vue";
                 https://github.com/sqlitedb/sqlitedb
             </a>
         </p>
-
-        <q-separator />
-
-        <br />
-
-        <p>This site is powered by Netlify.</p>
-
-        <a href="https://www.netlify.com">
-            <img
-                src="https://www.netlify.com/v3/img/components/netlify-color-bg.svg"
-                alt="Deploys by Netlify"
-            />
-        </a>
-
-        <br />
     </div>
 </template>
