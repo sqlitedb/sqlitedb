@@ -132,22 +132,29 @@ std::vector<RepositoryColumn> RepositoryImpl::getColumns(const std::string &name
 {
     auto sql = "PRAGMA table_info(\"" + name + "\");";
 
-    SQLite::Statement query(*db, sql);
-
     auto result = std::vector<RepositoryColumn>{};
 
-    while (query.executeStep())
+    try
     {
-        auto column = RepositoryColumn{
-            query.getColumn("cid").getInt64(),
-            query.getColumn("name").getString(),
-            query.getColumn("type").getString(),
-            query.getColumn("notnull").getInt() == 1,
-            query.getColumn("dflt_value").getString(),
-            query.getColumn("pk").getInt() == 1,
-        };
+        SQLite::Statement query(*db, sql);
 
-        result.push_back(column);
+        while (query.executeStep())
+        {
+            auto column = RepositoryColumn{
+                query.getColumn("cid").getInt64(),
+                query.getColumn("name").getString(),
+                query.getColumn("type").getString(),
+                query.getColumn("notnull").getInt() == 1,
+                query.getColumn("dflt_value").getString(),
+                query.getColumn("pk").getInt() == 1,
+            };
+
+            result.push_back(column);
+        }
+    }
+    catch (const std::exception &e)
+    {
+        // ignore
     }
 
     return result;
@@ -157,24 +164,31 @@ std::vector<RepositoryRow> RepositoryImpl::getRows(const std::string &name)
 {
     auto sql = "SELECT * FROM \"" + name + "\";";
 
-    SQLite::Statement query(*db, sql);
-
     auto result = std::vector<RepositoryRow>{};
 
-    while (query.executeStep())
+    try
     {
-        auto values = std::vector<std::string>{};
+        SQLite::Statement query(*db, sql);
 
-        for (int x = 0; x < query.getColumnCount(); x++)
+        while (query.executeStep())
         {
-            values.push_back(query.getColumn(x).getString());
+            auto values = std::vector<std::string>{};
+
+            for (int x = 0; x < query.getColumnCount(); x++)
+            {
+                values.push_back(query.getColumn(x).getString());
+            }
+
+            auto row = RepositoryRow{
+                values,
+            };
+
+            result.push_back(row);
         }
-
-        auto row = RepositoryRow{
-            values,
-        };
-
-        result.push_back(row);
+    }
+    catch (const std::exception &e)
+    {
+        // ignore
     }
 
     return result;

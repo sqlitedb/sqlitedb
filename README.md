@@ -14,6 +14,14 @@
     <a href="https://sqlitedb.github.io">https://sqlitedb.github.io</a>
 </p>
 
+## Demo
+
+<p align="center">
+    To open the application with demo database as parameter, open this website:
+    <br>
+    <a href="https://sqlitedb.github.io/?f=https://sqlitedb-app.s3.amazonaws.com/files/northwind.db">https://sqlitedb.github.io/?f=https://sqlitedb-app.s3.amazonaws.com/files/northwind.db</a>
+</p>
+
 ## Screenshot
 
 <p align="center">

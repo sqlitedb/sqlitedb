@@ -50,9 +50,8 @@ class CUrlHelper {
                         // put the value at that index number
                         obj[paramName][paramNum] = paramValue;
                     }
-                }
-                // if param name doesn't exist yet, set it
-                else {
+                } else {
+                    // if param name doesn't exist yet, set it
                     obj[paramName] = paramValue;
                 }
             }
@@ -65,7 +64,7 @@ class CUrlHelper {
         let params = this.getAllUrlParams(window.location.href);
 
         if (params != null && params !== undefined) {
-            if (params.hasOwn(param)) {
+            if (params[param] !== undefined) {
                 let value = params[param];
 
                 if (value != null && value !== undefined) {

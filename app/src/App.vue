@@ -4,6 +4,7 @@ import { inject, onMounted } from "vue";
 import { RouterView, useRouter } from "vue-router";
 import { useWasmModuleStore } from "./stores/wasm-module";
 import EventBus from "./classes/event-bus";
+import UrlHelper from "./classes/url-helper";
 
 const wm = useWasmModuleStore();
 const router = useRouter();
@@ -25,8 +26,10 @@ function openNewFile() {
     Application.reset();
     router.push("/");
 
-    FileHelper.open(
+    FileHelper.openLocalFile(
         () => {
+            hideLoading();
+
             q.dialog({
                 title: "Open",
                 message: "Database opened with success",
@@ -34,7 +37,12 @@ function openNewFile() {
 
             router.push("/");
         },
+        () => {
+            showLoading();
+        },
         (e) => {
+            hideLoading();
+
             q.dialog({
                 title: "Open",
                 message: e.message.toString(),
@@ -48,15 +56,43 @@ function newInstance() {
     Application.reset();
 }
 
+function checkForRemoteFile() {
+    let file = UrlHelper.getUrlParam("f");
+
+    if (file) {
+        FileHelper.openFromRemoteFile(
+            file,
+            () => {
+                hideLoading();
+
+                q.dialog({
+                    title: "Open",
+                    message: "Database opened with success",
+                });
+
+                router.push("/");
+            },
+            () => {
+                showLoading();
+            },
+            (e) => {
+                hideLoading();
+
+                q.dialog({
+                    title: "Open",
+                    message: e.message.toString(),
+                });
+            }
+        );
+    }
+}
+
 onMounted(() => {
     showLoading();
 
     EventBus.$on("wasm-module-loaded", () => {
         hideLoading();
-    });
-
-    EventBus.$on("db-file-loading", () => {
-        showLoading();
+        checkForRemoteFile();
     });
 });
 </script>
