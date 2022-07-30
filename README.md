@@ -31,4 +31,4 @@
 - Vue JS: [https://vuejs.org/](https://vuejs.org/)
 - Vite JS: [https://vitejs.dev/](https://vitejs.dev/)
 - Quasar: [https://quasar.dev/](https://quasar.dev/)
-- Github Action: [https://docs.github.com/en/actions](https://docs.github.com/en/actions)
+- Github Actions: [https://docs.github.com/en/actions](https://docs.github.com/en/actions)
