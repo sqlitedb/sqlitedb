@@ -19,7 +19,12 @@ import AboutDataVue from "../components/AboutData.vue";
 
         <br />
 
-        <p>This is an open-source software made by Paulo Coutinho.</p>
+        <p>
+            This is an open-source software made by
+            <a href="https://github.com/paulocoutinhox" target="_blank">
+                Paulo Coutinho </a
+            >.
+        </p>
         <p>
             You can see the source code here:
             <a href="https://github.com/sqlitedb/sqlitedb" target="_blank">
