@@ -4,7 +4,7 @@
 #include "nativium/data/NTVRepository.hpp"  // my header
 #include "nativium/data/NTVRepositoryColumn.hpp"
 #include "nativium/data/NTVRepositoryInfo.hpp"
-#include "nativium/data/NTVRepositoryRow.hpp"
+#include "nativium/data/NTVRepositoryRows.hpp"
 #include "nativium/data/NTVRepositoryTable.hpp"
 #include "nativium/data/NTVRepositoryView.hpp"
 
@@ -112,10 +112,14 @@ em::val NTVRepository::getColumns(const CppType& self, const std::string& w_name
         throw;
     }
 }
-em::val NTVRepository::getRows(const CppType& self, const std::string& w_name) {
+em::val NTVRepository::getRows(const CppType& self, const std::string& w_name,const std::string& w_sortBy,bool w_descending,int32_t w_page,int32_t w_rowsPerPage) {
     try {
-        auto r = self->getRows(::djinni::String::toCpp(w_name));
-        return ::djinni::List<::djinni_generated::NTVRepositoryRow>::fromCpp(r);
+        auto r = self->getRows(::djinni::String::toCpp(w_name),
+                ::djinni::String::toCpp(w_sortBy),
+                ::djinni::Bool::toCpp(w_descending),
+                ::djinni::I32::toCpp(w_page),
+                ::djinni::I32::toCpp(w_rowsPerPage));
+        return ::djinni_generated::NTVRepositoryRows::fromCpp(r);
     }
     catch(const std::exception& e) {
         djinni::djinni_throw_native_exception(e);

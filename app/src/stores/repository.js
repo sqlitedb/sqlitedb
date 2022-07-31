@@ -6,7 +6,7 @@ export const useRepositoryStore = defineStore({
     state: () => ({
         loaded: false,
         info: {},
-        databaseItems: [CDatabaseItem],
+        databaseItems: [],
         currentDatabaseItem: null,
     }),
     getters: {
@@ -16,7 +16,11 @@ export const useRepositoryStore = defineStore({
         reset() {
             this.loaded = false;
             this.info = {};
+
+            /** @type {CDatabaseItem} */
             this.currentDatabaseItem = null;
+
+            /** @type {CDatabaseItem[]} */
             this.databaseItems = [];
         },
         setLoaded(value) {
@@ -44,7 +48,10 @@ export const useRepositoryStore = defineStore({
 
             if (!found) {
                 let dbItem = new CDatabaseItem(itemType, itemName);
-                dbItem.load();
+
+                dbItem.load({
+                    pagination: dbItem.pagination,
+                });
 
                 this.databaseItems.push(dbItem);
             }

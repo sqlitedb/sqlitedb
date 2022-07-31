@@ -87,11 +87,8 @@ std::vector<RepositoryTable> RepositoryImpl::getTableList()
 
     while (query.executeStep())
     {
-        auto columns = getColumns(query.getColumn("name").getString());
-
         auto table = RepositoryTable{
             query.getColumn("name").getString(),
-            columns,
         };
 
         result.push_back(table);
@@ -115,11 +112,8 @@ std::vector<RepositoryView> RepositoryImpl::getViewList()
 
     while (query.executeStep())
     {
-        auto columns = getColumns(query.getColumn("name").getString());
-
         auto table = RepositoryView{
             query.getColumn("name").getString(),
-            columns,
         };
 
         result.push_back(table);
@@ -160,14 +154,34 @@ std::vector<RepositoryColumn> RepositoryImpl::getColumns(const std::string &name
     return result;
 }
 
-std::vector<RepositoryRow> RepositoryImpl::getRows(const std::string &name)
+RepositoryRows RepositoryImpl::getRows(const std::string &name, const std::string &sortBy, bool descending, int32_t page, int32_t rowsPerPage)
 {
-    auto sql = "SELECT * FROM \"" + name + "\";";
+    auto list = std::vector<RepositoryRow>{};
+    auto amount = 0;
 
-    auto result = std::vector<RepositoryRow>{};
-
+    // get database rows
     try
     {
+        // prepare query
+        auto sql = "SELECT * FROM \"" + name + "\"";
+
+        if (!sortBy.empty())
+        {
+            if (descending)
+            {
+                sql += " ORDER BY " + sortBy + " DESC ";
+            }
+            else
+            {
+                sql += " ORDER BY " + sortBy + " ASC ";
+            }
+        }
+
+        if (rowsPerPage > 0)
+        {
+            sql += " LIMIT " + std::to_string(page * rowsPerPage) + "," + std::to_string(rowsPerPage) + " ";
+        }
+
         SQLite::Statement query(*db, sql);
 
         while (query.executeStep())
@@ -183,7 +197,7 @@ std::vector<RepositoryRow> RepositoryImpl::getRows(const std::string &name)
                 values,
             };
 
-            result.push_back(row);
+            list.push_back(row);
         }
     }
     catch (const std::exception &e)
@@ -191,7 +205,28 @@ std::vector<RepositoryRow> RepositoryImpl::getRows(const std::string &name)
         // ignore
     }
 
-    return result;
+    // get database rows amount
+    try
+    {
+        // prepare query
+        auto sql = "SELECT COUNT(*) as qty FROM \"" + name + "\"";
+
+        SQLite::Statement query(*db, sql);
+
+        while (query.executeStep())
+        {
+            amount = query.getColumn(0).getInt64();
+        }
+    }
+    catch (const std::exception &e)
+    {
+        // ignore
+    }
+
+    return RepositoryRows{
+        list,
+        amount,
+    };
 }
 
 } // namespace data

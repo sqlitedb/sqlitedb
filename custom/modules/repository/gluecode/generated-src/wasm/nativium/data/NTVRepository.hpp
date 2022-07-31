@@ -32,7 +32,7 @@ struct NTVRepository : ::djinni::JsInterface<::nativium::data::Repository, NTVRe
     static em::val getTableList(const CppType& self);
     static em::val getViewList(const CppType& self);
     static em::val getColumns(const CppType& self, const std::string& w_name);
-    static em::val getRows(const CppType& self, const std::string& w_name);
+    static em::val getRows(const CppType& self, const std::string& w_name,const std::string& w_sortBy,bool w_descending,int32_t w_page,int32_t w_rowsPerPage);
 
 };
 

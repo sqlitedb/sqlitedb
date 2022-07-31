@@ -7,26 +7,22 @@
 @implementation NTVRepositoryView
 
 - (nonnull instancetype)initWithName:(nonnull NSString *)name
-                             columns:(nonnull NSArray<NTVRepositoryColumn *> *)columns
 {
     if (self = [super init]) {
         _name = [name copy];
-        _columns = [columns copy];
     }
     return self;
 }
 
 + (nonnull instancetype)repositoryViewWithName:(nonnull NSString *)name
-                                       columns:(nonnull NSArray<NTVRepositoryColumn *> *)columns
 {
-    return [[self alloc] initWithName:name
-                              columns:columns];
+    return [[self alloc] initWithName:name];
 }
 
 #ifndef DJINNI_DISABLE_DESCRIPTION_METHODS
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"<%@ %p name:%@ columns:%@>", self.class, (void *)self, self.name, self.columns];
+    return [NSString stringWithFormat:@"<%@ %p name:%@>", self.class, (void *)self, self.name];
 }
 
 #endif

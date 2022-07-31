@@ -3,21 +3,17 @@
 
 #pragma once
 
-#include "nativium/data/RepositoryColumn.hpp"
 #include <string>
 #include <utility>
-#include <vector>
 
 namespace nativium { namespace data {
 
 struct RepositoryView final {
     std::string name;
-    std::vector<RepositoryColumn> columns;
 
-    RepositoryView(std::string name_,
-                   std::vector<RepositoryColumn> columns_)
+    //NOLINTNEXTLINE(google-explicit-constructor)
+    RepositoryView(std::string name_)
     : name(std::move(name_))
-    , columns(std::move(columns_))
     {}
 };
 

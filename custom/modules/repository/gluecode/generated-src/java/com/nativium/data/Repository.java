@@ -24,7 +24,7 @@ public abstract class Repository {
 
     public abstract ArrayList<RepositoryColumn> getColumns(String name);
 
-    public abstract ArrayList<RepositoryRow> getRows(String name);
+    public abstract RepositoryRows getRows(String name, String sortBy, boolean descending, int page, int rowsPerPage);
 
     public static native Repository shared();
 
@@ -106,11 +106,11 @@ public abstract class Repository {
         private native ArrayList<RepositoryColumn> native_getColumns(long _nativeRef, String name);
 
         @Override
-        public ArrayList<RepositoryRow> getRows(String name)
+        public RepositoryRows getRows(String name, String sortBy, boolean descending, int page, int rowsPerPage)
         {
             assert !this.destroyed.get() : "trying to use a destroyed object";
-            return native_getRows(this.nativeRef, name);
+            return native_getRows(this.nativeRef, name, sortBy, descending, page, rowsPerPage);
         }
-        private native ArrayList<RepositoryRow> native_getRows(long _nativeRef, String name);
+        private native RepositoryRows native_getRows(long _nativeRef, String name, String sortBy, boolean descending, int page, int rowsPerPage);
     }
 }

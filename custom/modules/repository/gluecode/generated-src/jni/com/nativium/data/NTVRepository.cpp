@@ -4,7 +4,7 @@
 #include "com/nativium/data/NTVRepository.hpp"  // my header
 #include "com/nativium/data/NTVRepositoryColumn.hpp"
 #include "com/nativium/data/NTVRepositoryInfo.hpp"
-#include "com/nativium/data/NTVRepositoryRow.hpp"
+#include "com/nativium/data/NTVRepositoryRows.hpp"
 #include "com/nativium/data/NTVRepositoryTable.hpp"
 #include "com/nativium/data/NTVRepositoryView.hpp"
 #include "djinni/jni/Marshal.hpp"
@@ -100,12 +100,16 @@ CJNIEXPORT jobject JNICALL Java_com_nativium_data_Repository_00024CppProxy_nativ
     } JNI_TRANSLATE_EXCEPTIONS_RETURN(jniEnv, 0 /* value doesn't matter */)
 }
 
-CJNIEXPORT jobject JNICALL Java_com_nativium_data_Repository_00024CppProxy_native_1getRows(JNIEnv* jniEnv, jobject /*this*/, jlong nativeRef, jstring j_name)
+CJNIEXPORT jobject JNICALL Java_com_nativium_data_Repository_00024CppProxy_native_1getRows(JNIEnv* jniEnv, jobject /*this*/, jlong nativeRef, jstring j_name, jstring j_sortBy, jboolean j_descending, jint j_page, jint j_rowsPerPage)
 {
     try {
         const auto& ref = ::djinni::objectFromHandleAddress<::nativium::data::Repository>(nativeRef);
-        auto r = ref->getRows(::djinni::String::toCpp(jniEnv, j_name));
-        return ::djinni::release(::djinni::List<::djinni_generated::NTVRepositoryRow>::fromCpp(jniEnv, r));
+        auto r = ref->getRows(::djinni::String::toCpp(jniEnv, j_name),
+                              ::djinni::String::toCpp(jniEnv, j_sortBy),
+                              ::djinni::Bool::toCpp(jniEnv, j_descending),
+                              ::djinni::I32::toCpp(jniEnv, j_page),
+                              ::djinni::I32::toCpp(jniEnv, j_rowsPerPage));
+        return ::djinni::release(::djinni_generated::NTVRepositoryRows::fromCpp(jniEnv, r));
     } JNI_TRANSLATE_EXCEPTIONS_RETURN(jniEnv, 0 /* value doesn't matter */)
 }
 

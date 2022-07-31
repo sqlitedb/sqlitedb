@@ -8,7 +8,7 @@
 #import "djinni/objc/DJIMarshal+Private.h"
 #import "nativium/data/NTVRepositoryColumn+Private.h"
 #import "nativium/data/NTVRepositoryInfo+Private.h"
-#import "nativium/data/NTVRepositoryRow+Private.h"
+#import "nativium/data/NTVRepositoryRows+Private.h"
 #import "nativium/data/NTVRepositoryTable+Private.h"
 #import "nativium/data/NTVRepositoryView+Private.h"
 #include <exception>
@@ -95,10 +95,18 @@ static_assert(__has_feature(objc_arc), "Djinni requires ARC to be enabled for th
     } DJINNI_TRANSLATE_EXCEPTIONS()
 }
 
-- (nonnull NSArray<NTVRepositoryRow *> *)getRows:(nonnull NSString *)name {
+- (nonnull NTVRepositoryRows *)getRows:(nonnull NSString *)name
+                                sortBy:(nonnull NSString *)sortBy
+                            descending:(BOOL)descending
+                                  page:(int32_t)page
+                           rowsPerPage:(int32_t)rowsPerPage {
     try {
-        auto objcpp_result_ = _cppRefHandle.get()->getRows(::djinni::String::toCpp(name));
-        return ::djinni::List<::djinni_generated::RepositoryRow>::fromCpp(objcpp_result_);
+        auto objcpp_result_ = _cppRefHandle.get()->getRows(::djinni::String::toCpp(name),
+                                                           ::djinni::String::toCpp(sortBy),
+                                                           ::djinni::Bool::toCpp(descending),
+                                                           ::djinni::I32::toCpp(page),
+                                                           ::djinni::I32::toCpp(rowsPerPage));
+        return ::djinni_generated::RepositoryRows::fromCpp(objcpp_result_);
     } DJINNI_TRANSLATE_EXCEPTIONS()
 }
 

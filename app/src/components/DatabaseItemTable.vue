@@ -1,6 +1,10 @@
 <script setup>
 import { useRepositoryStore } from "../stores/repository";
 const repository = useRepositoryStore();
+
+function onRequest(props) {
+    repository.currentDatabaseItem.load(props);
+}
 </script>
 
 <template>
@@ -33,7 +37,7 @@ const repository = useRepositoryStore();
                 virtual-scroll
                 separator="cell"
                 v-model:pagination="repository.currentDatabaseItem.pagination"
-                :rows-per-page-options="[0]"
+                @request="onRequest"
             />
         </div>
     </div>

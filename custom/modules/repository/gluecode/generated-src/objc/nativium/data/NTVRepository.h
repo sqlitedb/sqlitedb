@@ -3,7 +3,7 @@
 
 #import "nativium/data/NTVRepositoryColumn.h"
 #import "nativium/data/NTVRepositoryInfo.h"
-#import "nativium/data/NTVRepositoryRow.h"
+#import "nativium/data/NTVRepositoryRows.h"
 #import "nativium/data/NTVRepositoryTable.h"
 #import "nativium/data/NTVRepositoryView.h"
 #import <Foundation/Foundation.h>
@@ -30,6 +30,10 @@
 
 - (nonnull NSArray<NTVRepositoryColumn *> *)getColumns:(nonnull NSString *)name;
 
-- (nonnull NSArray<NTVRepositoryRow *> *)getRows:(nonnull NSString *)name;
+- (nonnull NTVRepositoryRows *)getRows:(nonnull NSString *)name
+                                sortBy:(nonnull NSString *)sortBy
+                            descending:(BOOL)descending
+                                  page:(int32_t)page
+                           rowsPerPage:(int32_t)rowsPerPage;
 
 @end

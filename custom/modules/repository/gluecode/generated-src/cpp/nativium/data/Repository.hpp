@@ -3,6 +3,7 @@
 
 #pragma once
 
+#include <cstdint>
 #include <memory>
 #include <string>
 #include <vector>
@@ -11,7 +12,7 @@ namespace nativium { namespace data {
 
 struct RepositoryColumn;
 struct RepositoryInfo;
-struct RepositoryRow;
+struct RepositoryRows;
 struct RepositoryTable;
 struct RepositoryView;
 
@@ -37,7 +38,7 @@ public:
 
     virtual std::vector<RepositoryColumn> getColumns(const std::string & name) = 0;
 
-    virtual std::vector<RepositoryRow> getRows(const std::string & name) = 0;
+    virtual RepositoryRows getRows(const std::string & name, const std::string & sortBy, bool descending, int32_t page, int32_t rowsPerPage) = 0;
 };
 
 } }  // namespace nativium::data

@@ -21,6 +21,7 @@ int main(int argc, char **argv)
 #include "nativium/data/RepositoryColumn.hpp"
 #include "nativium/data/RepositoryInfo.hpp"
 #include "nativium/data/RepositoryRow.hpp"
+#include "nativium/data/RepositoryRows.hpp"
 #include "nativium/data/RepositoryTable.hpp"
 #include "nativium/data/RepositoryView.hpp"
 
@@ -52,7 +53,8 @@ int main(int argc, char **argv)
 
     try
     {
-        std::cout << "Column name from table 1: " << tables[0].columns[0].name << std::endl;
+        auto columns = Repository::shared()->getColumns(tables[0].name);
+        std::cout << "Column name from table 1: " << columns[0].name << std::endl;
     }
     catch (const std::exception &e)
     {
@@ -61,8 +63,9 @@ int main(int argc, char **argv)
 
     try
     {
-        auto values = Repository::shared()->getRows(tables[0].name);
-        std::cout << "Value from table 1: " << values[0].values[0] << std::endl;
+        auto columns = Repository::shared()->getColumns(tables[0].name);
+        auto values = Repository::shared()->getRows(tables[0].name, columns[0].name, true, 1, 10);
+        std::cout << "Value from table 1: " << values.list[0].values[0] << std::endl;
     }
     catch (const std::exception &e)
     {

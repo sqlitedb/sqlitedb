@@ -19,12 +19,10 @@ repository_row = record {
 
 repository_table = record {
     name: string;
-    columns: list<repository_column>;
 }
 
 repository_view = record {
     name: string;
-    columns: list<repository_column>;
 }
 
 repository_info = record {
@@ -32,6 +30,11 @@ repository_info = record {
     file_data: database_file_data;
     tables: list<repository_table>;
     views: list<repository_view>;
+}
+
+repository_rows = record {
+    list: list<repository_row>;
+    amount: i32;
 }
 
 repository = interface +c {
@@ -44,5 +47,5 @@ repository = interface +c {
     get_table_list(): list<repository_table>;
     get_view_list(): list<repository_view>;
     get_columns(name: string): list<repository_column>;
-    get_rows(name: string): list<repository_row>;
+    get_rows(name: string, sort_by: string, descending: bool, page: i32, rows_per_page: i32): repository_rows;
 }
