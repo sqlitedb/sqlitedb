@@ -1,6 +1,10 @@
 <script setup>
 import { useRepositoryStore } from "../stores/repository";
 const repository = useRepositoryStore();
+
+function onRequest(props) {
+    repository.currentDatabaseItem.load(props);
+}
 </script>
 
 <template>
@@ -27,14 +31,13 @@ const repository = useRepositoryStore();
 
             <q-table
                 class="custom-table no-border-radius no-shadow"
-                style=""
                 :rows="repository.currentDatabaseItem.rows"
                 :columns="repository.currentDatabaseItem.columns"
                 row-key="index"
                 virtual-scroll
                 separator="cell"
                 v-model:pagination="repository.currentDatabaseItem.pagination"
-                :rows-per-page-options="[0]"
+                @request="onRequest"
             />
         </div>
     </div>
