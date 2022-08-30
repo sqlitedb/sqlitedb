@@ -1,0 +1,96 @@
+name: WASM
+
+on: [push]
+
+jobs:
+  build:
+    name: ${{ matrix.config.name }}
+    runs-on: ${{ matrix.config.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        config:
+          - { name: "Ubuntu", os: ubuntu-latest, target: "wasm" }
+        python-version: [3.7]
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v1
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Upgrade PIP
+        run: python3 -m pip install --upgrade pip setuptools wheel
+
+      - name: Display Python Version
+        run: python3 --version
+
+      - name: Display PIP Version
+        run: python3 -m pip --version
+
+      - name: Install CMake
+        uses: jwlawson/actions-setup-cmake@v1.8
+        with:
+          cmake-version: "3.20.0"
+
+      - name: Install Ninja
+        uses: seanmiddleditch/gha-setup-ninja@master
+        with:
+          version: "1.10.0"
+
+      - name: Install Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - name: Nativium - Install
+        run: git clone https://github.com/nativium/nativium.git nativium
+
+      - name: Nativium - Install Python Dependencies
+        working-directory: nativium
+        run: python3 -m pip install -r requirements.txt
+
+      - name: Nativium - Install Custom
+        working-directory: nativium
+        run: python3 nativium.py custom install --path=../custom
+
+      - name: Nativium - Install Glue Code Tool
+        working-directory: nativium
+        run: python3 nativium.py gluecode setup
+
+      - name: Nativium - Setup Conan
+        working-directory: nativium
+        run: python3 nativium.py conan setup
+
+      - name: Nativium - Setup
+        working-directory: nativium
+        run: python3 nativium.py target ${{ matrix.config.target }} setup
+
+      - name: Nativium - Build
+        working-directory: nativium
+        run: python3 nativium.py target ${{ matrix.config.target }} build
+
+      - name: Build Web Application
+        working-directory: webapp
+        run: |
+          npm install
+          npm run build
+
+      - name: Generate Fallback Files
+        if: startsWith(github.ref, 'refs/tags/v')
+        working-directory: webapp/dist
+        run: |
+          cp index.html 200.html
+          cp index.html 404.html
+
+      - name: Publish
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          token: ${{ secrets.PUBLISH_TOKEN }}
+          repository-name: "sqlitedb/sqlitedb.github.io"
+          folder: webapp/dist
+          single-commit: true
+          branch: main

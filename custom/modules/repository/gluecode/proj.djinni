@@ -1,0 +1,52 @@
+database_file_data = record {
+    name: string;
+    file_size: i64;
+    file_path: string;
+}
+
+repository_column = record {
+    id: i64;
+    name: string;
+    type: string;
+    not_null: bool;
+    default_value: string;
+    pk: bool;
+    group_type: string;
+}
+
+repository_row = record {
+    values: list<string>;
+}
+
+repository_table = record {
+    name: string;
+}
+
+repository_view = record {
+    name: string;
+}
+
+repository_info = record {
+    sqlite_version: string;
+    file_data: database_file_data;
+    tables: list<repository_table>;
+    views: list<repository_view>;
+}
+
+repository_rows = record {
+    list: list<repository_row>;
+    amount: i32;
+}
+
+repository = interface +c {
+    static shared(): repository;
+    open(path: string);
+    close();
+    test();
+    get_info(): repository_info;
+    get_sqlite_version(): string;
+    get_table_list(): list<repository_table>;
+    get_view_list(): list<repository_view>;
+    get_columns(name: string): list<repository_column>;
+    get_rows(name: string, sort_by: string, descending: bool, page: i32, rows_per_page: i32): repository_rows;
+}
