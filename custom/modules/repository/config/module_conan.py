@@ -1,4 +1,4 @@
-from conans import ConanFile
+from conan import ConanFile
 from core import const as c
 
 
