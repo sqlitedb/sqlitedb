@@ -6,6 +6,10 @@ const repository = useRepositoryStore();
 function onRequest(databaseItem, props) {
     databaseItem.load(props);
 }
+
+function onClose(databaseItem) {
+    repository.removeDatabaseItem(databaseItem.itemType, databaseItem.itemName);
+}
 </script>
 
 <template>
@@ -18,13 +22,24 @@ function onRequest(databaseItem, props) {
             indicator-color="primary"
             align="justify"
             narrow-indicator
+            inline-label
         >
             <q-tab
                 v-for="databaseItem in repository.databaseItems"
                 :key="databaseItem.id"
                 :name="databaseItem.itemName"
                 :label="databaseItem.itemName"
-            />
+            >
+                <q-btn
+                    class="q-ml-xs"
+                    round
+                    flat
+                    color="primary"
+                    icon="close"
+                    size="xs"
+                    @click="onClose(databaseItem)"
+                />
+            </q-tab>
         </q-tabs>
         <q-separator />
         <q-tab-panels v-model="repository.currentTab" animated>
