@@ -26,13 +26,6 @@ function onRequest(data) {
     emit("onRequest", data);
 }
 
-function onClose() {
-    repository.removeDatabaseItem(
-        props.databaseItem.itemType,
-        props.databaseItem.itemName
-    );
-}
-
 function getTableColumnSlotName(column) {
     return "body-cell-" + column.name;
 }
@@ -141,14 +134,6 @@ onMounted(() => {
                     <q-item-label v-else-if="databaseItem.itemType == 'view'"
                         >View: {{ databaseItem.itemName }}
                     </q-item-label>
-                </q-item-section>
-                <q-item-section>
-                    <q-btn
-                        flat
-                        color="primary"
-                        label="Close"
-                        @click="onClose"
-                    />
                 </q-item-section>
             </q-item>
 
