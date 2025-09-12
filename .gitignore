@@ -24,3 +24,13 @@ package-lock.json
 
 # qt
 /build-*
+
+# python
+*.pyc
+__pycache__
+
+# sqlite
+*.db
+*.db-journal
+*.db-wal
+*.db-shm

@@ -1,8 +1,10 @@
 <script setup>
 import { useWasmModuleStore } from "../stores/wasm-module";
+import { Quasar } from 'quasar'
 
 const wm = useWasmModuleStore();
 const currentDateTime = import.meta.env.CURRENT_DATE_TIME;
+const quasarVersion = Quasar.version
 </script>
 
 <template>
@@ -14,6 +16,10 @@ const currentDateTime = import.meta.env.CURRENT_DATE_TIME;
         <p>
             Wasm Module Version:
             {{ wm.module.ApplicationCore.shared().getVersion() }}
+        </p>
+        <p>
+            Quasar Version:
+            {{ quasarVersion }}
         </p>
         <p>Generated at: {{ currentDateTime }}</p>
     </div>

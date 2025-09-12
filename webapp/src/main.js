@@ -2,6 +2,9 @@
 import { createPinia } from "pinia";
 import { createApp } from "vue";
 
+// pinia
+const pinia = createPinia()
+
 // application
 import App from "./App.vue";
 const app = createApp(App);
@@ -36,6 +39,6 @@ app.use(FileHelper);
 import router from "./router";
 
 // mount application
-app.use(createPinia());
+app.use(pinia);
 app.use(router);
 app.mount("#app");

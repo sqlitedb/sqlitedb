@@ -6,8 +6,7 @@ import { defineStore } from "pinia";
  * @property {import("../../../nativium/modules/repository/gluecode/generated-src/ts/repository").Repository_statics} Repository
  */
 
-export const useWasmModuleStore = defineStore({
-    id: "wasm-module",
+export const useWasmModuleStore = defineStore('wasm-module', {
     state: () => ({
         loaded: false,
 

@@ -2,9 +2,7 @@
 import { useQuasar } from "quasar";
 import { computed, onMounted } from "vue";
 import CDatabaseItem from "../classes/database-item";
-import { useRepositoryStore } from "../stores/repository";
 
-const repository = useRepositoryStore();
 const q = useQuasar();
 
 const props = defineProps({
@@ -112,108 +110,65 @@ onMounted(() => {
         <div class="no-shadow">
             <q-item>
                 <q-item-section side>
-                    <q-avatar
-                        v-if="databaseItem.itemType == 'table'"
-                        icon="table_rows"
-                        color="indigo"
-                        text-color="white"
-                        size="24px"
-                    />
-                    <q-avatar
-                        v-else-if="databaseItem.itemType == 'view'"
-                        icon="flash_on"
-                        color="indigo"
-                        text-color="white"
-                        size="24px"
-                    />
+                    <q-avatar v-if="databaseItem.itemType == 'table'" icon="table_rows" color="indigo"
+                        text-color="white" size="24px" />
+                    <q-avatar v-else-if="databaseItem.itemType == 'view'" icon="flash_on" color="indigo"
+                        text-color="white" size="24px" />
                 </q-item-section>
                 <q-item-section>
-                    <q-item-label v-if="databaseItem.itemType == 'table'"
-                        >Table: {{ databaseItem.itemName }}
+                    <q-item-label v-if="databaseItem.itemType == 'table'">Table: {{ databaseItem.itemName }}
                     </q-item-label>
-                    <q-item-label v-else-if="databaseItem.itemType == 'view'"
-                        >View: {{ databaseItem.itemName }}
+                    <q-item-label v-else-if="databaseItem.itemType == 'view'">View: {{ databaseItem.itemName }}
                     </q-item-label>
                 </q-item-section>
             </q-item>
 
-            <q-table
-                class="custom-table no-border-radius no-shadow sticky-virtscroll-table"
-                :rows="databaseItem.rows"
-                :columns="databaseItem.columns"
-                row-key="index"
-                virtual-scroll
-                separator="cell"
-                v-model:pagination="pagination"
-                :virtual-scroll-sticky-size-start="48"
-                @request="onRequest"
-            >
-                <template
-                    v-for="columnItem in databaseItem.columns"
-                    :key="columnItem.name"
-                    v-slot:[getTableColumnSlotName(columnItem.db)]="props"
-                >
+            <q-table class="custom-table no-border-radius no-shadow sticky-virtscroll-table" :rows="databaseItem.rows"
+                :columns="databaseItem.columns" row-key="index" virtual-scroll separator="cell"
+                v-model:pagination="pagination" :virtual-scroll-sticky-size-start="48" @request="onRequest">
+                <template v-for="columnItem in databaseItem.columns" :key="columnItem.name"
+                    v-slot:[getTableColumnSlotName(columnItem.db)]="props">
                     <q-td key="columnItem.name" :props="props">
                         <div v-if="isTableColumnGroupTypeText(columnItem.db)">
                             <div v-if="props.row[columnItem.name].length > 50">
                                 {{
                                     props.row[columnItem.name].substr(0, 50)
                                 }}...
-                                <q-btn
-                                    flat
-                                    color="warning"
-                                    size="xs"
-                                    icon="open_in_new"
-                                    @click="
-                                        openDialogForTextData(
-                                            columnItem.db,
-                                            props.row[columnItem.name]
-                                        )
-                                    "
-                                />
+                                <q-btn flat color="warning" size="xs" icon="open_in_new" @click="
+                                    openDialogForTextData(
+                                        columnItem.db,
+                                        props.row[columnItem.name]
+                                    )
+                                    " />
                             </div>
                             <div v-else>
                                 {{ props.row[columnItem.name] }}
                             </div>
                         </div>
-                        <div
-                            v-else-if="
-                                isTableColumnGroupTypeBlob(columnItem.db)
-                            "
-                        >
+                        <div v-else-if="
+                            isTableColumnGroupTypeBlob(columnItem.db)
+                        ">
                             [BLOB]
-                            <q-btn
-                                flat
-                                color="warning"
-                                size="xs"
-                                icon="open_in_new"
-                                @click="
-                                    openDialogForBlobData(
-                                        columnItem.db,
-                                        props.row[columnItem.name]
-                                    )
-                                "
-                            />
+                            <q-btn flat color="warning" size="xs" icon="open_in_new" @click="
+                                openDialogForBlobData(
+                                    columnItem.db,
+                                    props.row[columnItem.name]
+                                )
+                                " />
                         </div>
-                        <div
-                            v-else-if="
-                                isTableColumnGroupTypeNumeric(columnItem.db)
-                            "
-                        >
+                        <div v-else-if="
+                            isTableColumnGroupTypeNumeric(columnItem.db)
+                        ">
                             {{ props.row[columnItem.name] }}
                         </div>
-                        <div
-                            v-else-if="
-                                isTableColumnGroupTypeInteger(columnItem.db)
-                            "
-                        >
+                        <div v-else-if="
+                            isTableColumnGroupTypeInteger(columnItem.db)
+                        ">
                             {{ props.row[columnItem.name] }}
                         </div>
-                        <div
-                            v-else-if="
-                                isTableColumnGroupTypeReal(columnItem.db)
-                            "
-                        >
+                        <div v-else-if="
+                            isTableColumnGroupTypeReal(columnItem.db)
+                        ">
                             {{ props.row[columnItem.name] }}
                         </div>
                         <div v-else :props="props">
@@ -221,18 +176,12 @@ onMounted(() => {
                                 {{
                                     props.row[columnItem.name].substr(0, 50)
                                 }}...
-                                <q-btn
-                                    flat
-                                    color="warning"
-                                    size="xs"
-                                    icon="open_in_new"
-                                    @click="
-                                        openDialogForTextData(
-                                            columnItem.db,
-                                            props.row[columnItem.name]
-                                        )
-                                    "
-                                />
+                                <q-btn flat color="warning" size="xs" icon="open_in_new" @click="
+                                    openDialogForTextData(
+                                        columnItem.db,
+                                        props.row[columnItem.name]
+                                    )
+                                    " />
                             </div>
                             <div v-else>
                                 {{ props.row[columnItem.name] }}
