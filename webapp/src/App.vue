@@ -110,9 +110,14 @@ wm.$subscribe((mutation, state) => {
                     <q-space />
 
                     <div v-if="wm.isLoaded">
-                        <q-badge>{{
-                            wm.module.ApplicationCore.shared().getVersion()
-                        }}</q-badge>
+                        <q-badge>
+                            <!--
+                            {{
+                                wm.module.ApplicationCore.shared().getVersion()
+                            }}
+                            -->
+                            Beta
+                        </q-badge>
                     </div>
                 </q-bar>
 
@@ -122,17 +127,13 @@ wm.$subscribe((mutation, state) => {
                         <q-menu>
                             <q-list dense style="min-width: 100px">
                                 <q-item clickable v-close-popup>
-                                    <q-item-section @click="newInstance()"
-                                        >New</q-item-section
-                                    >
+                                    <q-item-section @click="newInstance()">New</q-item-section>
                                 </q-item>
 
                                 <q-separator />
 
                                 <q-item clickable v-close-popup>
-                                    <q-item-section @click="openNewFile()"
-                                        >Open...</q-item-section
-                                    >
+                                    <q-item-section @click="openNewFile()">Open...</q-item-section>
                                 </q-item>
                             </q-list>
                         </q-menu>
@@ -143,10 +144,7 @@ wm.$subscribe((mutation, state) => {
                         <q-menu auto-close>
                             <q-list dense style="min-width: 100px">
                                 <q-item clickable>
-                                    <q-item-section
-                                        @click="$router.push('/about')"
-                                        >About</q-item-section
-                                    >
+                                    <q-item-section @click="$router.push('/about')">About</q-item-section>
                                 </q-item>
                             </q-list>
                         </q-menu>

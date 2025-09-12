@@ -26,7 +26,7 @@
 
 <p align="center">
     <a href="https://github.com/sqlitedb/sqlitedb" target="_blank" rel="noopener noreferrer">
-        <img src="extras/images/screenshot-20220716.png" alt="SQLite Data Browser Screenshot">
+        <img src="extras/images/screenshot-20250912.png" alt="SQLite Data Browser Screenshot">
     </a>
 </p>
 

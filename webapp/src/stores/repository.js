@@ -1,8 +1,7 @@
 import { defineStore } from "pinia";
 import CDatabaseItem from "../classes/database-item";
 
-export const useRepositoryStore = defineStore({
-    id: "repository",
+export const useRepositoryStore = defineStore('repository', {
     state: () => ({
         loaded: false,
         info: {},

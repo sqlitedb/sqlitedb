@@ -41,22 +41,8 @@ def run(params):
             "path": "targets/wasm/config/target_config.py",
             "list": [
                 {
-                    "old": 'has_debug = True',
-                    "new": 'has_debug = False',
-                },
-            ],
-        },
-        {
-            "type": "replace-text",
-            "path": "targets/macos/config/target_config.py",
-            "list": [
-                {
-                    "old": 'has_debug = True',
-                    "new": 'has_debug = False',
-                },
-                {
-                    "old": '"min_version": "10.9"',
-                    "new": '"min_version": "10.15"',
+                    "old": "has_debug = True",
+                    "new": "has_debug = False",
                 },
             ],
         },
@@ -65,8 +51,8 @@ def run(params):
             "path": "targets/windows/config/target_config.py",
             "list": [
                 {
-                    "old": 'has_debug = True',
-                    "new": 'has_debug = False',
+                    "old": "has_debug = True",
+                    "new": "has_debug = False",
                 },
             ],
         },
@@ -75,8 +61,8 @@ def run(params):
             "path": "targets/linux/config/target_config.py",
             "list": [
                 {
-                    "old": 'has_debug = True',
-                    "new": 'has_debug = False',
+                    "old": "has_debug = True",
+                    "new": "has_debug = False",
                 },
             ],
         },
@@ -86,28 +72,34 @@ def run(params):
             "list": [
                 {
                     "old": 'set(NATIVIUM_C_FLAGS "-Wall" CACHE STRING "Custom C Flags")',
-                    "new": textwrap.dedent("""\
+                    "new": textwrap.dedent(
+                        """\
                     if(NATIVIUM_TARGET STREQUAL "wasm")
                         set(NATIVIUM_C_FLAGS "-Wall -fwasm-exceptions" CACHE STRING "Custom C Flags")
                     else()
                         set(NATIVIUM_C_FLAGS "-Wall" CACHE STRING "Custom C Flags")
                     endif()
-                    """)
+                    """
+                    ),
                 },
                 {
                     "old": 'set(NATIVIUM_CXX_FLAGS "-Wall" CACHE STRING "Custom CXX Flags")',
-                    "new": textwrap.dedent("""\
+                    "new": textwrap.dedent(
+                        """\
                     if(NATIVIUM_TARGET STREQUAL "wasm")
                         set(NATIVIUM_CXX_FLAGS "-Wall -fwasm-exceptions" CACHE STRING "Custom CXX Flags")
                     else()
                         set(NATIVIUM_CXX_FLAGS "-Wall" CACHE STRING "Custom CXX Flags")
                     endif()
-                    """)
+                    """
+                    ),
                 },
                 {
                     "old": 'set(NATIVIUM_WASM_LINK_FLAGS "--bind -s MALLOC=emmalloc -s WASM_BIGINT=1")',
-                    "new": textwrap.dedent("""\
-                    set(NATIVIUM_WASM_LINK_FLAGS "--bind -s MALLOC=emmalloc -s WASM_BIGINT=1 -fwasm-exceptions -sMODULARIZE -s EXPORT_ES6=1 -s EXPORTED_RUNTIME_METHODS=['FS']")"""),
+                    "new": textwrap.dedent(
+                        """\
+                    set(NATIVIUM_WASM_LINK_FLAGS "--bind -s MALLOC=emmalloc -s WASM_BIGINT=1 -fwasm-exceptions -sMODULARIZE -s EXPORT_ES6=1 -s EXPORTED_RUNTIME_METHODS=['FS']")"""
+                    ),
                 },
             ],
         },
